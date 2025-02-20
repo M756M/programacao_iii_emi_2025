@@ -1,0 +1,7 @@
+{
+    "type": "module",
+    "name": "projeto_emi_iii_2025",
+    "devDependencies": {
+        "typescript": "^5.7.3"
+    }
+}
