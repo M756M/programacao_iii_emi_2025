@@ -27,8 +27,6 @@
                 </li>
             </ul>
 
-
-
             <ul id="example-2">
                 <li v-for="j in jogadores" :key="j.nickname">
 
@@ -41,11 +39,18 @@
             </ul>
 
             <h2>Listagem de Patentes</h2>
+
             <ul border="1" style="list-style-type: decimal;">
                 <li v-for="p in patentes" :key="p.codigo">
                     <b>{{p.codigo}} {{p.descricao}}</b>
                 </li>
             </ul>
+
+            <h2>Registro de jogadores</h2>
+
+            <input type="number" placeholder="Código do jogador" />
+            <input type="text" placeholder="Descrição da patente"/>
+            <button type="submit">2'21'</button>
 
             <h2>Listagem de Partidas</h2>
 
@@ -55,16 +60,26 @@
                     <td>Data</td>
                     <td>Jogador</td>
                     <td>Quantidade de Estrelas</td>
+                    <td>Patente</td>
                 </tr>
                 <tr v-for="p in partidas" :key="p.codigo">
-
                     <td> {{p.codigo}} </td>
                     <td> {{p.data}}</td>
                     <td> {{p.jogador.nickname}}</td>
                     <td> {{p.jogador.qtd_estrela}}</td>
+                    <td v-for="patente in patentes" v-if="p.codigo === patente.codigo">
+                        {{patente.descricao}}
+                    </td>
                 </tr>
-
             </table>
+
+            <h2>Jogadores com menos de 10 estrelas</h2>
+
+            <ul border="1">
+                <li v-for="jogador in jogadores" v-if="jogador.qtd_estrela < 10">
+                    <span><b>{{jogador.nickname}}</b> possui apenas <b>{{jogador.qtd_estrela}}</b> estrelas.</span>
+                </li>
+            </ul>
 
         </form>
     </div>
@@ -74,34 +89,35 @@
 
     $(document).ready(function () {
 
-        alert('Chegou aqui !! ');
-
         var dados = {
-            jogadores: [{ nickname: 'joaozinho', qtd_estrela: 5, senha: '123' },
-            { nickname: 'ze', qtd_estrela: 12, senha: '456' },
-            { nickname: 'bastião', qtd_estrela: 16, senha: '777' },
-            { nickname: 'dede', qtd_estrela: 16, senha: '777' }
+            jogadores: [
+                { nickname: 'joaozinho', qtd_estrela: 5, senha: '123' },
+                { nickname: 'ze', qtd_estrela: 12, senha: '456' },
+                { nickname: 'bastião', qtd_estrela: 16, senha: '777' },
+                { nickname: 'dede', qtd_estrela: 16, senha: '777' }
             ],
-            patentes: [{ codigo: '1', descricao: 'Ouro' },
-            { codigo: '2', descricao: 'Prata' },
-            { codigo: '3', descricao: 'Bronze' }
+            patentes: [
+                { codigo: 1, descricao: 'Ouro' },
+                { codigo: 2, descricao: 'Prata' },
+                { codigo: 3, descricao: 'Bronze' }
             ],
-            partidas: [{
-                codigo: 1, data: '28/02/2023',
-                jogador: {
-                    nickname: 'joaozinho',
-                    qtd_estrela: 5,
-                    senha: '123'
+            partidas: [
+                {
+                    codigo: 1, data: '28/02/2023',
+                    jogador: {
+                        nickname: 'joaozinho',
+                        qtd_estrela: 5,
+                        senha: '123'
+                    }
+                },
+                {
+                    codigo: 2, data: '10/02/2023',
+                    jogador: {
+                        nickname: 'bastião',
+                        qtd_estrela: 0,
+                        senha: '456'
+                    }
                 }
-            },
-            {
-                codigo: 2, data: '10/02/2023',
-                jogador: {
-                    nickname: 'bastião',
-                    qtd_estrela: 0,
-                    senha: '456'
-                }
-            }
             ]
         };
 
