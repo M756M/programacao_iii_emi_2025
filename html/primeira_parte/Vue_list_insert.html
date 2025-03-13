@@ -5,92 +5,87 @@
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.8/vue.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+        <script defer type="text/javascript">
+            window.addEventListener("DOMContentLoaded", () => {
+                let currentDay = new Date();
+
+                let dados = { 
+                    jogadores: [
+                        { nickname: 'joaozinho', qtd_estrela: 5, qtd_pontos: 0, senha: '123', data_nasc: 'não sabo' },    
+                        { nickname: 'ze', qtd_estrela: 12, qtd_pontos: 0, senha: '456', data_nasc: 'não sabo' },
+                        { nickname: 'bastião', qtd_estrela: 16, qtd_pontos: 0, senha: '777', data_nasc: 'não sabo' },
+                        { nickname: 'romario', qtd_estrela: 19, qtd_pontos: 0, senha: '220', data_nasc: 'não sabo' },
+                        { nickname: 'bebeto', qtd_estrela: 10, qtd_pontos: 0, senha: '22', data_nasc: 'não sabo' },
+                        { nickname: 'cannigia', qtd_estrela: 2, qtd_pontos: 0, senha: '228', data_nasc: 'não sabo' },
+                        { nickname: 'maradona', qtd_estrela: 1, qtd_pontos: 0, senha: '228', data_nasc: 'não sabo' }
+                    ], 
+                    novo_jogador: {
+                        nickname: '',
+                        qtd_pontos: 0,
+                        qtd_estrela: 0,
+                        senha: '',
+                        data_nasc: `${currentDay.getFullYear()}-${currentDay.getMonth() <= 9 ? `0${currentDay.getMonth() + 1}` : currentDay.getMonth() + 1}-${currentDay.getDate() <= 9 ? `0${currentDay.getDate()}` : currentDay.getDate()}`
+                    }
+                };
+
+                new Vue({ 
+                    el: '#app', 
+                    data: dados,
+                    methods: { 
+                        addJogador: function () { 
+                            let input_jogador = this.novo_jogador.nickname.trim(); 
+		                    let input_qtd_estrela = this.novo_jogador.qtd_estrela;
+                            let input_qtd_pontos = this.novo_jogador.qtd_pontos;
+                            let input_senha = this.novo_jogador.senha.trim();
+                            let input_data_nasc = new Date(this.novo_jogador.data_nasc);
+
+                            if(!(input_jogador.length > 3 && input_jogador.length < 9)){ alert("Informe o nickname correto"); return; };
+                            if(!(input_senha.length === 4)){ alert("Informe uma senha de 4 caractéres"); return; };
+                            if(!(input_qtd_estrela > 0)){ alert("Informe uma quantidade de estrelas maior que zero"); return; };
+                            if(!(input_qtd_pontos >= 1 && input_qtd_pontos <= 1000)){ alert("Informe uma quantidade de pontos entre 1 e 1000"); return; };
+                            if(!(input_data_nasc.getTime() < new Date().getTime())){ alert("Não é possível cadastrar um usuário do futuro"); return; };
+
+                            alert("Registrado sem erro");
+
+                            this.jogadores.push({
+                                qtd_estrela: input_qtd_estrela,
+                                qtd_pontos: input_qtd_pontos,
+                                senha:input_senha,
+                                nickname: input_jogador,
+                                data_nasc: `${input_data_nasc.getDate()}/${input_data_nasc.getMonth() + 1}/${input_data_nasc.getFullYear()}`
+                            });
+
+                            return;
+                        }
+                    }
+                });
+            })
+        </script>
     </head> 
     <body>
          <h2>Terceiro Exemplo com Vue</h2>
             <div id="app">
-               
-                    <h2>Listagem de Jogadores do CS</h2>   
-
+                    <h2>Listagem de Jogadores do CS</h2>
                     <li v-for="j in jogadores">
-                                                                        
-                        <big>Jogador:</big><small>{{j.nickname}}</small> - <big>Estrelas:</big><small>{{j.qtd_estrela}}</small> - <big>Senha:</big><small>{{j.senha}}</small>                        
-                                               
+                        <big>Jogador:</big><small>{{j.nickname}}</small> 
+                        - <big>Estrelas:</big><small>{{j.qtd_estrela}}</small> 
+                        - <big>Senha:</big><small>{{j.senha}}</small> 
+                        - <big>Pontos:</big><small>{{j.qtd_pontos}}</small>
+                        - <big>Data de Nascimento:</big><small>{{j.data_nasc}}</small>
                     </li>
-               
                     <form id="formulario">                        
                         <h2>Formulário para cadastrar novo jogador</h2>
-                        
                         <div class="container">
                             <label>Nickname:</label><input v-model="novo_jogador.nickname" class="form-control" placeholder="Me edite">
                             <label>Estrelas:</label><input v-model="novo_jogador.qtd_estrela" class="form-control" type="number">
                             <label>Senha:</label><input v-model="novo_jogador.senha" class="form-control" type="password" maxlength="4" placeholder="digite uma senha de 4 digitos">
-
-                        </div>                            
-                    
+                            <label>Pontos:</label><input v-model="novo_jogador.qtd_pontos" class="form-control" type="number">
+                            <label>Data de Nascimento</label><input v-model="novo_jogador.data_nasc" class="form-control" type="date">
+                        </div>
                         <span class="input-group-btn">
                             <button  @click="addJogador" class="btn btn-primary" type="button">Adicionar!</button>
                         </span>
-                    </form>        
-
-            </div>       
+                    </form>
+            </div>
     </body>
-    <script type="text/javascript">
-   
-   
-        $(document).ready(function() {
-            var dados = { 
-                jogadores:  [ {nickname: 'joaozinho', qtd_estrela: 5, senha: '123'},    
-                              {nickname: 'ze', qtd_estrela: 12, senha: '456'},
-                              {nickname: 'bastião', qtd_estrela: 16, senha: '777'},
-                              {nickname: 'romario', qtd_estrela: 19, senha: '220'},
-                              {nickname: 'bebeto', qtd_estrela: 10, senha: '22'},
-                              {nickname: 'cannigia', qtd_estrela: 2, senha: '228'},
-                              {nickname: 'maradona', qtd_estrela: 1, senha: '228'}
-                            ], 
-                            
-                novo_jogador: {nickname: '', qtd_pontos: '', qtd_estrela: 0, senha: ''}
-            };
-        
-         //alert('passou aqui');
-
-          new Vue({ 
-                el: '#app', 
-                data: dados,
-                methods: { 
-
-                    addJogador: function () { 
-                        var input_jogador = this.novo_jogador.nickname.trim(); 
-		                var input_qtd_estrela = this.novo_jogador.qtd_estrela; 
-                        var input_senha = this.novo_jogador.senha.trim();
-                        //validacao do formulario
-                        if (input_jogador.length > 3 && input_jogador.length < 9){
-                            
-                            if( input_qtd_estrela > 0){
-
-                                if(input_senha.length == 4){
-
-                                    this.jogadores.push({
-                                                 qtd_estrela: input_qtd_estrela, 
-                                                 senha:input_senha,
-                                                 nickname: input_jogador})
-
-                                }else{
-                                    alert("Informe a senha de 4 digitos.");
-                                }
-                            }else{
-                                alert("Informe o quantida de estrelas maior do que zero");
-                            }
-                        }else{
-                            alert("Informe o nickname correto");
-                        }
-
-                    }
-
-                }
-            }); 
-        });
-
-    </script> 
-   
  </html>
