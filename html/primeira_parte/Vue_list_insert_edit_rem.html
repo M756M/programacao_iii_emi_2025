@@ -51,6 +51,10 @@
                             <label for="inputNickname">Nickname:</label>
                             <input type="text" v-model="novo_jogador.nickname" class="form-control" id="inputNickname">
                         </div>
+                        <div>
+                            <label for="inputPonto">Qtd. de Ponto</label>
+                            <input id="inputPonto" type="number" min="1" max="1000" class="form-control" v-model="novo_jogador.qtd_ponto"/>
+                        </div>
                         <div class="form-group">
                             <label for="inputDtNasc">D. Nascimento:</label>
                             <input type="date" v-model="novo_jogador.data_nascimento" class="form-control" id="inputDtNasc"><!--Atividade - Aplicar um input/calendario mais apropriado. -->
@@ -83,6 +87,7 @@
                     nickname: 'joaozinho',
                     data_nascimento: '01/01/1998',
                     qtd_estrela: 5,
+                    qtd_ponto: 0,
                     status: false,
                     senha: '1234'
                 }],
@@ -91,6 +96,7 @@
                     nickname: '',
                     data_nascimento: '',
                     qtd_estrela: '',
+                    qtd_ponto: '',
                     status: false,
                     senha: ''
                 }
@@ -106,17 +112,20 @@
                         var input_qtd_estrela = this.novo_jogador.qtd_estrela;                         
                         var input_senha = this.novo_jogador.senha.trim();
                         var input_status = this.novo_jogador.status;
+                        var input_qtd_ponto = this.novo_jogador.qtd_ponto;
 
                         if(!(input_nickname.length > 3 && input_qtd_estrela > -1 && input_senha.length > 3)){ alert("Preencha nickname, estrelas e senha"); return; };
                         if(!(input_senha.length === 6)){ alert("Use uma senha de 6 dígitos"); return; };
                         if(!(input_qtd_estrela >= 1 && input_qtd_estrela <= 100)){ alert("A quantidade de estrelas deve estar entre 1 e 100, incluso"); return; };
                         if(!(input_data_nascimento.getMilliseconds() < new Date().getMilliseconds())){ alert("A data de nascimento não pode ser do futuro"); return; };
+                        if(!(input_qtd_ponto >= 1 && input_qtd_ponto <= 10000)){ alert("A quantidade de pontos deve estar entre 1 e 10.000, incluso"); return; };
 
                         if(!Number.isNaN(parseInt(input_indice))){
                             this.jogadores[input_indice] = {
                                 nickname: input_nickname,
                                 data_nascimento: `${input_data_nascimento.getDate()}/${input_data_nascimento.getMonth()}/${input_data_nascimento.getFullYear()}`,
                                 qtd_estrela: input_qtd_estrela,
+                                qtd_ponto: input_qtd_ponto,
                                 status: input_status,
                                 senha: input_senha
                             };
