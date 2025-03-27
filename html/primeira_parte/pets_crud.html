@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=], initial-scale=1.0">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/estilos.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="https://unpkg.com/vuelidate@0.7.4/dist/vuelidate.min.js"></script>
+    <script src="https://unpkg.com/vuelidate@0.7.4/dist/validators.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <title>Document</title>
+    <script type="text/javascript" defer>
+        const dados = {
+            racas: [],
+            pets: [],
+            novo_pet: {
+                codigo: "",
+                nome: "",
+                tutor_cpf: "",
+                raca: "",
+                data_nascimento: "",
+                vacinacao: "",
+                valor: ""
+            },
+        };
+
+        window.addEventListener("DOMContentLoaded", () => {
+
+
+            return;
+        });
+    </script>
+</head>
+<body>
+    <div id="root" class="container">
+        <h2>Listagem de Pets</h2>
+        <table>
+            <thead>
+                <tr scope="col">#</tr>
+                <tr scope="col">Nome</tr>
+                <tr scope="col">CPF do Tutor</tr>
+                <tr scope="col">Raça</tr>
+                <tr scope="col">Data de Nascimento</tr>
+                <tr scope="col">Vacinação</tr>
+                <tr scope="col">Valor</tr>
+            </thead>
+            <tbody>
+                <tr v-for="(pet, i) in pets">
+                    <td>{{ i }}</td>
+                    <td>{{ pet.nome }}</td>
+                    <td>{{ pet.tutor_cpf }}</td>
+                    <td>{{ pet.raca }}</td>
+                    <td>{{ pet.data_nascimento }}</td>
+                    <td>{{ pet.vacinacao }}</td>
+                    <td>{{ pet.valor }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>Cadastro de Pets</h2>
+        <form>
+            div>(label+input)*
+        </form>
+    </div>
+</body>
+</html>
